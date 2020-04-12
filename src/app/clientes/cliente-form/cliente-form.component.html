@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title">Cadastro de Clientes</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="clientForm" (ngSubmit)="saveCliente()">
+        <div class="formGroup">
+            <label for="title">Nome:</label>
+            <input type="text" id="nome" placeholder="Nome" class="form-control" formControlName="nome"/>
+            <span style="color: red;" *ngIf="clientForm.controls['nome'].touched && clientForm.controls['nome'].errors?.required">Campo requerido</span>
+        </div>
+        <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <textarea id="endereco" placeholder="Endereço"></textarea>
+            <span style="color: red;"  *ngIf="clientForm.controls['endereco'].touched && clientForm.controls['endereco'].errors?.required">Campo requerido</span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="casado" formControlName="casado" />
+            <label class="form-check-label" for="casado" >
+                Casado
+            </label>
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer" >
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')" >Fechar</button>
+    <button class="btn btn-primary" (click)="saveCliente()" [disabled]="clientForm.invalid" >Salvar</button>
+</div>
