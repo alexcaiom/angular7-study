@@ -22,7 +22,16 @@ export class ClienteService {
   }
 
 
-  editarClientes(cliente: ClienteViewModel): Promise<DocumentReference> {
-    return this.db.collection(this.clienteCollection).add(cliente);
+  editarClientes(cliente: ClienteViewModel): Promise<void> {
+    return this.db.collection(this.clienteCollection).doc(cliente.id).update(cliente);
+  }
+
+
+  editarClientesParcial(id: string, obj: Object): Promise<void> {
+    return this.db.collection(this.clienteCollection).doc(id).update(obj);
+  }
+
+  deletarClientes(id: string): Promise<void> {
+    return this.db.collection(this.clienteCollection).doc(id).delete();
   }
 }
