@@ -11,8 +11,8 @@ export const environment = {
     projectId: "banco-21eb3",
     storageBucket: "banco-21eb3.appspot.com",
     messagingSenderId: "516719102042",
-    appId: "1:516719102042:web:78e032dcbbd4a7d65c3063",
-    measurementId: "G-N5DK869X8P"
+    appId: "1:516719102042:web:db989eb06be7c17c5c3063",
+    measurementId: "G-J9NPG5GLLW"
   }
 };
 
