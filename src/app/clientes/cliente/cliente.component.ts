@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteFormComponent } from '../cliente-form/cliente-form.component';
 import { ClienteService } from 'src/app/cliente/services/cliente.service';
 import { ClienteViewModel } from 'src/app/cliente/models/cliente-view-model';
+import { Cliente } from 'src/app/cliente/models/cliente';
 
 @Component({
   selector: 'app-cliente',
@@ -18,11 +19,15 @@ export class ClienteComponent implements OnInit {
 
 
   clientes: ClienteViewModel[] = [];
-  isModoInsercao: boolean = true;
+  isModoInsercao: boolean = false;
   cliente: ClienteViewModel;
 
   ngOnInit(): void {
     this.mostrarClientes();
+  }
+
+  carregarTudo(cliente: Cliente) {
+
   }
 
   addCliente() {
@@ -35,7 +40,16 @@ export class ClienteComponent implements OnInit {
   }
 
   handleModalClientForm(response){
-    alert("Janela fechada");
+    if (response === Object(response)) {
+      if (response.modoInsercao) {
+        response.cliente.id = response.id;
+        this.clientes.unshift(response.cliente);
+        this.mostrarClientes();
+      } else {
+        let index = this.clientes.findIndex(value => value.id == response.id);
+        this.clientes[index] = response.cliente;
+      }
+    }
   }
 
 
@@ -57,8 +71,10 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  deletarClick(id: string, index: string) {
-
+  deletarClick(id: string, index: number) {
+    this.service.deletarClientes(id)
+    .then(() => {this.clientes.splice(index, 1);})
+    .catch(err => console.error(err));
   }
 
   editarClick(cliente: ClienteViewModel) {
