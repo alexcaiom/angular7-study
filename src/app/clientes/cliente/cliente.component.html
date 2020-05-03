@@ -1,30 +1,36 @@
-<p>Tela de Clientes!</p>
+<div class="container">
+    <div class="row col-md-12" >
+        <div class="col-md-8">
+            <h4>Clientes</h4>
+        </div>
+        <br>
+        
+    </div>
 
-<br>
-<button class="btn btn-primary" (click)="addCliente()">
-    Adicionar
-</button>
+    <table class="table table-striped" *ngIf="clientes && clientes.length > 0">
+        <thead>
+            <tr>
+                <th>Casado</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Data de Cadastro</th>
+                <th><button class="btn btn-primary" (click)="addCliente()" title="Adicionar">
+                    +
+                </button></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of clientes, let index = index ">
+                <td><input type="checkbox" [checked]="cliente.casado" (change)="checkedCasado(index)" /></td>
+                <td [ngClass]="{'casado': cliente.casado, 'nao-casado': !cliente.casado}">{{cliente.nome}}</td>
+                <td >{{cliente.endereco}}</td>
+                <td>{{cliente.modificacao | date}}</td>
+                <td>
+                    <button class="btn btn-primary" (click)="editarClick(cliente)" >Editar</button>
+                    <button class="btn btn-danger" (click)="deletarClick(cliente.id, index)" title="Excluir">X</button>
+                </td>
+            </tr>
+        </tbody>
 
-<table class="table table-striped" *ngIf="clientes && clientes.length > 0">
-    <thead>
-        <tr>
-            <th>Casado</th>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>Data de Cadastro</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let cliente of clientes, let index = index ">
-            <td><input type="checkbox" [checked]="cliente.casado" (change)="checkedCasado(index)" /></td>
-            <td [ngClass]="{'casado': cliente.casado, 'nao-casado': !cliente.casado}">{{cliente.nome}}</td>
-            <td >{{cliente.endereco}}</td>
-            <td>{{cliente.modificacao | date}}</td>
-            <td>
-                <button class="btn btn-primary" (click)="editarClick(cliente)" >Editar</button>
-                <button class="btn btn-danger" (click)="deletarClick(cliente.id, index)">Deletar</button>
-            </td>
-        </tr>
-    </tbody>
-
-</table>
+    </table>
+</div>
